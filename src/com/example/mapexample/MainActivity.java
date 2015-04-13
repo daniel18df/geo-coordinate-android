@@ -10,6 +10,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.splunk.mint.Mint;
 
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -50,6 +51,9 @@ GooglePlayServicesClient.OnConnectionFailedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        /** LIBRERIA MINT PARA SEGUIR BUGS*/
+        Mint.initAndStartSession(MainActivity.this, "07e69563");
         
         
         android.app.ActionBar actionBar = getActionBar();
