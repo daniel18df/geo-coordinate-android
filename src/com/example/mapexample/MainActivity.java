@@ -55,6 +55,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         Mint.initAndStartSession(MainActivity.this, "07e69563");
         
         
+        
         android.app.ActionBar actionBar = getActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF6F00")));
