@@ -11,8 +11,12 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -34,14 +38,35 @@ GooglePlayServicesClient.OnConnectionFailedListener {
     private ArrayList<Item_objct> NavItms;
     private TypedArray NavIcons;	
     NavigationAdapter NavAdapter;  
+    
+    @SuppressWarnings("deprecation")
+	private ActionBarDrawerToggle mDrawerToggle;
 	
 	
 	
 	private GoogleMap googleMap;
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
+        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FF6F00")));
+        actionBar.setTitle("     Mapa");
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                 //la actividad
+                NavDrawerLayout,         //el drawerLayout que desplegar�
+                R.drawable.ic_drawer, //el icono que mostraremos
+                R.string.app_name,  //descripci�n al abrir
+                R.string.app_name  //descripci�n al cerrar
+                ) {     };
 
 		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 		googleMap = mapFragment.getMap();
@@ -49,7 +74,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 		
 		
 		//Drawer Layout
-		NavDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		
 		//NavDrawerLayout = (DrawerLayout) findViewById(R.id.);
 
 		//Lista
@@ -121,8 +146,7 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected1(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -132,6 +156,8 @@ GooglePlayServicesClient.OnConnectionFailedListener {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub	
@@ -143,6 +169,30 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	@Override
 	public void onDisconnected() {
 		// TODO Auto-generated method stub	
+	}
+	
+    //Que el bot�n de desplegar siempre este sincronizado
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+	//Igual con la configuraci�n
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+	//Activamos el click paradesplegar
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	
