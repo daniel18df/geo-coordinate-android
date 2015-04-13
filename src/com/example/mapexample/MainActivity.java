@@ -44,7 +44,6 @@ GooglePlayServicesClient.OnConnectionFailedListener {
 	private ActionBarDrawerToggle mDrawerToggle;
 	
 	
-	
 	private GoogleMap googleMap;
     @SuppressWarnings("deprecation")
 	@Override
